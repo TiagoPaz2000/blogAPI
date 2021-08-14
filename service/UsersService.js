@@ -1,6 +1,7 @@
 const { User } = require('../models');
 const Joi = require('joi');
 const validateJoi = require('../utils/validateJoi');
+const errorHelper = require('../utils/errorHelper');
 const crypto = require('crypto');
 const { valid } = require('joi');
 
@@ -20,7 +21,13 @@ const createUser = async (userCredentials) => {
     }),
     userCredentials,
     400,
-  )
+  );
+
+  const userExisting = await getUser(userCredentials.email);
+
+  console.log(userExisting);
+
+  if (userExisting) errorHelper(401, '"Email" already used');
 
   const encodedPassword = () => {
     return crypto
@@ -32,10 +39,16 @@ const createUser = async (userCredentials) => {
   const newPassword = encodedPassword();
 
   const user = await User.create({ firstName, lastName, email, password: newPassword });
-  console.log(user);
   return user;
 }
 
+const getUser = async (email) => {
+  const user = await User.findOne({ where: { email }});
+
+  return user;
+};
+
 module.exports = {
   createUser,
+  getUser
 }
