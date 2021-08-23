@@ -4,11 +4,13 @@ const app = express();
 const Post = require('./Controllers/PostsController');
 const User = require('./Controllers/UsersController');
 const errorMiddleware = require('./utils/error');
+const authMiddleware = require('./utils/authMiddleware');
 
 app.use(express.json());
 
 app.get('/posts', Post.getAll);
 app.get('/posts/:id', Post.getOne);
+app.get('/teste', authMiddleware, Post.getAll);
 
 app.post('/user/create', User.createUser);
 app.get('/login', User.loginUser);

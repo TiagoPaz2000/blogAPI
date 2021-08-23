@@ -35,9 +35,10 @@ const createUser = async (userCredentials) => {
       .digest('hex');
   };
 
-  const newPassword = encodedPassword();
+  const encryptedPassword = encodedPassword();
 
-  const { dataValues: user } = await User.create({ firstName, lastName, email, password: newPassword });
+  const { dataValues: user } = await User
+    .create({ firstName, lastName, email, password: encryptedPassword });
   const { password: userPassword, ...payload } = user;
 
   const token = sign(payload);
@@ -58,10 +59,11 @@ const loginUser = async (userCredentials) => {
       .digest('hex');
   };
 
-  const newPassword = encodedPassword();
+  const encryptedPassword = encodedPassword();
 
   try {
-    const { dataValues: user } = await User.findOne({ where: { email, password: newPassword } });
+    const { dataValues: user } = await User
+      .findOne({ where: { email, password: encryptedPassword } });
     const { password: userPassword, ...payload } = user;
 
     const token = sign(payload);
@@ -69,10 +71,10 @@ const loginUser = async (userCredentials) => {
     return token;
   } catch(_error) {
     errorHelper(401, '"Email" or "Password" incorrect');
-  }
-}
+  };
+};
 
 module.exports = {
   createUser,
   loginUser,
-}
+};
