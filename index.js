@@ -9,7 +9,9 @@ app.use(express.json());
 
 app.get('/posts', Post.getAll);
 app.get('/posts/:id', Post.getOne);
-app.post('/user', User.createUser);
+
+app.post('/user/create', User.createUser);
+app.get('/login', User.loginUser);
 
 app.use(errorMiddleware);
 

@@ -37,14 +37,42 @@ const createUser = async (userCredentials) => {
 
   const newPassword = encodedPassword();
 
-  const { dataValues } = await User.create({ firstName, lastName, email, password: newPassword });
-  const { password: userPassword, ...payload } = dataValues;
+  const { dataValues: user } = await User.create({ firstName, lastName, email, password: newPassword });
+  const { password: userPassword, ...payload } = user;
 
   const token = sign(payload);
 
   return token;
 }
 
+const loginUser = async (userCredentials) => {
+  const [_hashType, hash] = userCredentials.split(' ');
+  const [email, password] = Buffer.from(hash, 'base64')
+    .toString()
+    .split(':');
+  
+  const encodedPassword = () => {
+    return crypto
+      .createHash('md5')
+      .update(password)
+      .digest('hex');
+  };
+
+  const newPassword = encodedPassword();
+
+  try {
+    const { dataValues: user } = await User.findOne({ where: { email, password: newPassword } });
+    const { password: userPassword, ...payload } = user;
+
+    const token = sign(payload);
+  
+    return token;
+  } catch(_error) {
+    errorHelper(401, '"Email" or "Password" incorrect');
+  }
+}
+
 module.exports = {
   createUser,
+  loginUser,
 }
