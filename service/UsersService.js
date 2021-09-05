@@ -1,6 +1,5 @@
 const Joi = require('joi');
 const crypto = require('crypto');
-const { valid } = require('joi');
 const { User } = require('../models');
 const { sign } = require('../utils/jwt');
 const validateJoi = require('../utils/validateJoi');
@@ -12,7 +11,7 @@ const createUser = async (userCredentials) => {
     lastName,
     email,
     password } = userCredentials;
-
+  
   validateJoi(
     Joi.object({
       firstName: Joi.string().min(1).required(),
@@ -25,7 +24,7 @@ const createUser = async (userCredentials) => {
   );
 
   const userExisting = await User.findOne({ where: { email: userCredentials.email }});
-
+  
   if (userExisting) errorHelper(401, '"Email" already used');
 
   const encodedPassword = () => {
@@ -38,7 +37,8 @@ const createUser = async (userCredentials) => {
   const encryptedPassword = encodedPassword();
 
   const { dataValues: user } = await User
-    .create({ firstName, lastName, email, password: encryptedPassword });
+    .create({ firstName, lastName, email, password: encryptedPassword, role: 'user' });
+
   const { password: userPassword, ...payload } = user;
 
   const token = sign(payload);
@@ -51,7 +51,7 @@ const loginUser = async (userCredentials) => {
   const [email, password] = Buffer.from(hash, 'base64')
     .toString()
     .split(':');
-  
+
   const encodedPassword = () => {
     return crypto
       .createHash('md5')
