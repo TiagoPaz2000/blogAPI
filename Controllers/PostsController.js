@@ -20,11 +20,21 @@ const createPost = rescue(async (req, res) => {
 
   const post = await Posts.createPost(title, categories, content, user);
 
-  res.status(201).json(post);
+  res.status(201).json({ post });
 });
+
+const deletePost = rescue(async (req, res) => {
+  const { id } = req.params;
+  const { user } = req;
+
+  const deletedPostId = await Posts.deletePost(id, user);
+
+  res.status(200).json({ deletedPostId });
+})
 
 module.exports = {
   getAll,
   getOne,
   createPost,
+  deletePost,
 };

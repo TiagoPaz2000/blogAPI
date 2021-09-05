@@ -11,6 +11,7 @@ app.use(express.json());
 app.get('/posts', Post.getAll);
 app.get('/posts/:id', Post.getOne);
 app.post('/posts/create', authMiddleware, Post.createPost);
+app.delete('/posts/delete/:id', authMiddleware, Post.deletePost);
 
 app.post('/user/create', User.createUser);
 app.get('/login', User.loginUser);

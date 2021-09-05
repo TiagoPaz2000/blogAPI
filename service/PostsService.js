@@ -36,8 +36,29 @@ const createPost = async (title, categories, content, user) => {
   return post;
 };
 
+const deletePost = async (id, user) => {
+  validateJoi(
+    Joi.object({
+      id: Joi.number().required(),
+    }),
+    { id },
+    400,
+  );
+
+  try {
+    if (user.role !== 'admin') errorHelper(401, 'You dont have authorization');
+
+    await Posts.destroy({ where: { id } });
+
+    return id;
+  } catch (error) {
+    errorHelper(400, error);
+  };
+};
+
 module.exports = {
   getAll,
   getOne,
   createPost,
+  deletePost,
 };
