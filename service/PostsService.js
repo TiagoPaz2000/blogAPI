@@ -40,8 +40,9 @@ const deletePost = async (id, user) => {
   validateJoi(
     Joi.object({
       id: Joi.number().required(),
+      role: Joi.string().min(1).required(),
     }),
-    { id },
+    { id, role: user.role },
     400,
   );
 
@@ -56,9 +57,35 @@ const deletePost = async (id, user) => {
   };
 };
 
+const updatePost = async (id, user, title, categories, content) => {
+  console.log('teste');
+  validateJoi(
+    Joi.object({
+      title: Joi.string().min(8).required(),
+      categories: Joi.string().min(1).required(),
+      content: Joi.string().min(30).required(),
+      role: Joi.string().min(1).required(),
+    }),
+    { title, categories, content, role: user.role },
+    400,
+  );
+
+  try {
+    if (user.role !== 'admin') errorHelper(401, 'You dont have authorization');
+    const updatedPostId = await Posts.update({ title, categories, content },
+      { where: { id } }
+    );
+
+    return updatedPostId;
+  } catch (error) {
+    errorHelper(400, error);
+  };
+}
+
 module.exports = {
   getAll,
   getOne,
   createPost,
   deletePost,
+  updatePost,
 };

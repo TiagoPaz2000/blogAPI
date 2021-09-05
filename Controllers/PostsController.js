@@ -30,11 +30,21 @@ const deletePost = rescue(async (req, res) => {
   const deletedPostId = await Posts.deletePost(id, user);
 
   res.status(200).json({ deletedPostId });
-})
+});
+
+const updatePost = rescue(async (req, res) => {
+  const { title, categories, content } = req.body;
+  const { id } = req.params;
+  const { user } = req;
+  const updatedPostId = await Posts.updatePost(id, user, title, categories, content);
+
+  res.status(200).json({ updatedPostId });
+});
 
 module.exports = {
   getAll,
   getOne,
   createPost,
   deletePost,
+  updatePost,
 };
