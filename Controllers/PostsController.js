@@ -16,9 +16,8 @@ const getOne = async (req, res) => {
 
 const createPost = rescue(async (req, res) => {
   const { title, categories, content } = req.body;
-  const { user } = req;
-
-  const post = await Posts.createPost(title, categories, content, user);
+  const { user, file } = req;
+  const post = await Posts.createPost(title, categories, content, user, file);
 
   res.status(201).json({ post });
 });
@@ -35,8 +34,8 @@ const deletePost = rescue(async (req, res) => {
 const updatePost = rescue(async (req, res) => {
   const { title, categories, content } = req.body;
   const { id } = req.params;
-  const { user } = req;
-  const updatedPostId = await Posts.updatePost(id, user, title, categories, content);
+  const { user, file } = req;
+  const updatedPostId = await Posts.updatePost(id, user, title, categories, content, file);
 
   res.status(200).json({ updatedPostId });
 });

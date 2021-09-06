@@ -4,7 +4,6 @@ const errorHelper = require('../utils/errorHelper');
 const getRating = async (postId, userId) => {
   try {
     const rating = await PostRatings.findOne({ where: { postId, userId } });
-    console.log(rating);
     return rating;
   } catch(error) {
     errorHelper(400, error);

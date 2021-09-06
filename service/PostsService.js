@@ -16,22 +16,25 @@ const getOne = async (id) => {
   return post
 };
 
-const createPost = async (title, categories, content, user) => {
+const createPost = async (title, categories, content, user, image) => {
   validateJoi(
     Joi.object({
       title: Joi.string().min(8).required(),
       categories: Joi.string().min(1).required(),
       content: Joi.string().min(30).required(),
       role: Joi.string().min(1).required(),
+      urlImage: Joi.string().min(1).required(),
     }),
-    { title, categories, content, role: user.role },
+    { title, categories, content, role: user.role, urlImage: image.filename },
     400,
   );
     
   if (user.role !== 'admin') errorHelper(401, 'You dont have authorization');
 
+  const urlImage = `/temp/uploads/${image.filename}`;
+
   const { dataValues: post } = await Posts
-    .create({ title, categories, rating: 0, content });
+    .create({ title, categories, rating: 1, content, urlImage });
 
   return post;
 };
@@ -57,26 +60,25 @@ const deletePost = async (id, user) => {
   };
 };
 
-const updatePost = async (id, user, title, categories, content) => {
-  console.log('teste');
+const updatePost = async (id, user, title, categories, content, image) => {
   validateJoi(
     Joi.object({
       title: Joi.string().min(8).required(),
       categories: Joi.string().min(1).required(),
       content: Joi.string().min(30).required(),
       role: Joi.string().min(1).required(),
+      urlImage: Joi.string().min(1).required(),
     }),
-    { title, categories, content, role: user.role },
+    { title, categories, content, role: user.role, urlImage: image.filename },
     400,
   );
 
+  const urlImage = `/temp/uploads/${image.filename}`;
+
   try {
     if (user.role !== 'admin') errorHelper(401, 'You dont have authorization');
-    const updatedPostId = await Posts.update({ title, categories, content },
-      { where: { id } }
-    );
-
-    return updatedPostId;
+    await Posts.update({ title, categories, content, urlImage }, { where: { id } });
+    return id;
   } catch (error) {
     errorHelper(400, error);
   };
