@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const Post = require('./Controllers/PostsController');
 const User = require('./Controllers/UsersController');
+const Rating = require('./Controllers/RatingController');
 const errorMiddleware = require('./utils/error');
 const authMiddleware = require('./utils/authMiddleware');
 
@@ -16,6 +17,9 @@ app.put('/posts/update/:id', authMiddleware, Post.updatePost);
 
 app.post('/user/create', User.createUser);
 app.get('/login', User.loginUser);
+
+app.post('/rating/add/:id', authMiddleware, Rating.addRating);
+app.delete('/rating/delete/:id', authMiddleware, Rating.deleteRating);
 
 app.use(errorMiddleware);
 
