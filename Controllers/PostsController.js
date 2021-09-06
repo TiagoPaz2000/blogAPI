@@ -32,10 +32,10 @@ const deletePost = rescue(async (req, res) => {
 });
 
 const updatePost = rescue(async (req, res) => {
-  const { title, categories, content } = req.body;
+  const { title, categorie, content } = req.body;
   const { id } = req.params;
   const { user, file } = req;
-  const updatedPostId = await Posts.updatePost(id, user, title, categories, content, file);
+  const updatedPostId = await Posts.updatePost(id, user, title, categorie, content, file);
 
   res.status(200).json({ updatedPostId });
 });

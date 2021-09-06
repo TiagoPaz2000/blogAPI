@@ -16,16 +16,16 @@ const getOne = async (id) => {
   return post
 };
 
-const createPost = async (title, categories, content, user, image) => {
+const createPost = async (title, categorie, content, user, image) => {
   validateJoi(
     Joi.object({
       title: Joi.string().min(8).required(),
-      categories: Joi.string().min(1).required(),
+      categorie: Joi.string().min(1).required(),
       content: Joi.string().min(30).required(),
       role: Joi.string().min(1).required(),
       urlImage: Joi.string().min(1).required(),
     }),
-    { title, categories, content, role: user.role, urlImage: image.filename },
+    { title, categorie, content, role: user.role, urlImage: image.filename },
     400,
   );
     
@@ -34,7 +34,7 @@ const createPost = async (title, categories, content, user, image) => {
   const urlImage = `/temp/uploads/${image.filename}`;
 
   const { dataValues: post } = await Posts
-    .create({ title, categories, rating: 1, content, urlImage });
+    .create({ title, categorie, rating: 1, content, urlImage });
 
   return post;
 };
@@ -60,16 +60,16 @@ const deletePost = async (id, user) => {
   };
 };
 
-const updatePost = async (id, user, title, categories, content, image) => {
+const updatePost = async (id, user, title, categorie, content, image) => {
   validateJoi(
     Joi.object({
       title: Joi.string().min(8).required(),
-      categories: Joi.string().min(1).required(),
+      categorie: Joi.string().min(1).required(),
       content: Joi.string().min(30).required(),
       role: Joi.string().min(1).required(),
       urlImage: Joi.string().min(1).required(),
     }),
-    { title, categories, content, role: user.role, urlImage: image.filename },
+    { title, categorie, content, role: user.role, urlImage: image.filename },
     400,
   );
 
@@ -77,7 +77,7 @@ const updatePost = async (id, user, title, categories, content, image) => {
 
   try {
     if (user.role !== 'admin') errorHelper(401, 'You dont have authorization');
-    await Posts.update({ title, categories, content, urlImage }, { where: { id } });
+    await Posts.update({ title, categorie, content, urlImage }, { where: { id } });
     return id;
   } catch (error) {
     errorHelper(400, error);
