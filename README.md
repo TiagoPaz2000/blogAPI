@@ -4,8 +4,8 @@ Esse projeto foi desenvolvido por mim, para exercitar minhas habilidades em Node
 
 ### Requisitos necessários para rodar o projeto localmente:
 
-1. Node.js (Versão 14.x para frente)(link: https://nodejs.org/en/);
-2. MySQL (link: https://dev.mysql.com/downloads/);
+1. Node.js (Versão 14.x para frente)(link: <https://nodejs.org/en/>);
+2. MySQL (link: <https://dev.mysql.com/downloads/>);
 3. Gerenciador de pacote (npm ou yarn);
 
 ### Instruções para iniciar o projeto localmente:
@@ -21,6 +21,8 @@ Esse projeto foi desenvolvido por mim, para exercitar minhas habilidades em Node
     - Execute o comando `npx sequelize db:migrate` para rodar as migrations;
     - Execute o comando `npx sequelize db:seed:all` para popular as tabelas com as informações pré-determinadas nos arquivos de seeds;
 
-### Informações sobre as rotas:
+### Lista de rotas:
+- GET: `/posts`
+- GET: `/posts/id`
 
-<span style="color:blue">some *This is Blue italic.* text</span>
+### Detalhes de cada rotas:
