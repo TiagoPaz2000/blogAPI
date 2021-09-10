@@ -4,7 +4,7 @@ Esse projeto foi desenvolvido para exercitar minhas habilidades em Node.js + Exp
 
 ### Requisitos necessários para rodar o projeto localmente:
 
-1. Node.js (Versão 14.x para frente)(link: <https://nodejs.org/en/>);
+1. Node.js (Versão 14.x ou superior)(link: <https://nodejs.org/en/>);
 2. MySQL (link: <https://dev.mysql.com/downloads/>);
 3. Gerenciador de pacote (npm ou yarn);
 
