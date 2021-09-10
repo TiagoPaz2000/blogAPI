@@ -17,9 +17,10 @@ Esse projeto foi desenvolvido para exercitar minhas habilidades em Node.js + Exp
     - Agore edite as variáveis conforme a sua configuração.
 3. Execute o comando `npm install` no terminal dentro da pasta raiz do projeto.
 4. Agora será necessário rodar os comandos do Sequelize:
-    - Execute o comando `npx sequelize db:create` para criar o banco de dados;
-    - Execute o comando `npx sequelize db:migrate` para rodar as migrations;
-    - Execute o comando `npx sequelize db:seed:all` para popular as tabelas com as informações pré-determinadas nos arquivos de seeds;
+    - Execute o comando `npx sequelize db:create` para criar o banco de dados.
+    - Execute o comando `npx sequelize db:migrate` para rodar as migrations.
+    - Execute o comando `npx sequelize db:seed:all` para popular as tabelas com as informações pré-determinadas nos arquivos de seeds.
+5. Use `npm start` para executar o projeto, ou use `npm run dev` para executar usando o nodemon.
 
 ### Lista de rotas:
 - GET: `/posts`
