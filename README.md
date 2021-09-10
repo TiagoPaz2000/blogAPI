@@ -1,6 +1,6 @@
 # Blog API #
 
-Esse projeto foi desenvolvido por mim, para exercitar minhas habilidades em Node.js + Express, MySQL e Sequelize;
+Esse projeto foi desenvolvido para exercitar minhas habilidades em Node.js + Express, MySQL e Sequelize;
 
 ### Requisitos necessários para rodar o projeto localmente:
 
