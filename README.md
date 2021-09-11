@@ -152,4 +152,42 @@ Esse projeto foi desenvolvido para exercitar minhas habilidades em Node.js + Exp
            {
 			  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImZpcnN0TmFtZSI6Implbm4iLCJsYXN0TmFtZSI6ImJhcmJvc2EiLCJlbWFpbCI6Implbm5AZW1haWwuY29tIiwicm9sZSI6InVzZXIiLCJ1cGRhdGVkQXQiOiIyMDIxLTA5LTA1VDIxOjM5OjMxLjExMFoiLCJjcmVhdGVkQXQiOiIyMDIxLTA5LTA1VDIxOjM5OjMxLjExMFoiLCJpYXQiOjE2MzA4Nzc5NzEsImV4cCI6MTYzMDk2NDM3MX0.yKicIv4TkcewMbbM0-aHpUW7beJmS3tETz0nG0hXGv8"
 			}
+			
+	8. GET: `/login` - Login:
+			
+		- estrutura esperada:
+			basic auth (body):
+			  - email;
+			  - password;
+			  			  
+	    - formato JSON retornado:
+           {
+			  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImZpcnN0TmFtZSI6Implbm4iLCJsYXN0TmFtZSI6ImJhcmJvc2EiLCJlbWFpbCI6Implbm5AZW1haWwuY29tIiwicm9sZSI6InVzZXIiLCJ1cGRhdGVkQXQiOiIyMDIxLTA5LTA1VDIxOjM5OjMxLjExMFoiLCJjcmVhdGVkQXQiOiIyMDIxLTA5LTA1VDIxOjM5OjMxLjExMFoiLCJpYXQiOjE2MzA4Nzc5NzEsImV4cCI6MTYzMDk2NDM3MX0.yKicIv4TkcewMbbM0-aHpUW7beJmS3tETz0nG0hXGv8"
+			}
 	
+	9. POST: `/rating/add/:id` - Criação de rating:
+			
+		- estrutura esperada:
+			bearer Token: 
+			  - Token;
+			  			  
+	    - formato JSON retornado:
+			{
+			  "ratingPost": {
+			    "PostId": "1",
+			    "UserId": 1,
+			    "updatedAt": "2021-09-11T00:42:32.673Z",
+			    "createdAt": "2021-09-11T00:42:32.673Z"
+			  }
+			}
+			
+	10. DELETE: `/rating/delete/:id` - Deleta rating:
+			
+		- estrutura esperada:
+			bearer Token: 
+			  - Token;
+			  			  
+	    - formato JSON retornado:
+			{
+			  "deletedRating": "1"
+			}
