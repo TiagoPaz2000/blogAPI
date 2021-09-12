@@ -15,9 +15,9 @@ const getOne = async (req, res) => {
 };
 
 const createPost = rescue(async (req, res) => {
-  const { title, categories, content } = req.body;
+  const { title, categorie, content } = req.body;
   const { user, file } = req;
-  const post = await Posts.createPost(title, categories, content, user, file);
+  const post = await Posts.createPost(title, categorie, content, user, file);
 
   res.status(201).json({ post });
 });
